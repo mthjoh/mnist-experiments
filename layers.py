@@ -45,4 +45,17 @@ if __name__ == '__main__':
     print(backward_test)
     
 
- 
+def softmax(x):
+    xmax = np.max(x)
+    xtamed= x-xmax
+    expx = np.exp(xtamed)
+    return expx/np.sum(expx)
+
+def cross_entropy_error(y,t):
+    return -np.log(np.sum(t*y)+1e-7)
+
+print(cross_entropy_error(np.array(([1.0, 0.0])),np.array(([1.0, 0.0]))))
+print(cross_entropy_error(np.array(([1.0, 0.0])),np.array(([0.0, 1.0]))))
+
+print(softmax(np.array([2.0, 1.0, 0.1])))
+print(softmax(np.array([1002.0, 1001.0, 1000.1]))) 

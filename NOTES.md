@@ -1,0 +1,4 @@
+# 2026-07-09 — network.py complete
+- Built: Network.py importing the layers.py file. Made predict, loss, gradient, and accruacy methods
+- Description: The predict method allows the neural network to predict what the hand written number is. The loss method calculates how bad the neural network guessed. The gradient method stores just how much each weight and bias effected the bad results. And the accuracy method tells us how accurate the network is. 
+- Still confused by: I am still getting alot of help by Claude. I ask questions and Claude guides me through. I am still learning so much and it is hard to grasp the full picture or the fine details.

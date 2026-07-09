@@ -34,15 +34,29 @@ class Affine:
         self.db = np.sum(dout, axis=0)
         return dx
 
+class SoftmaxWithLoss:
+    def __init__(self):
+        self.y=None
+        self.t=None
+        self.loss=None
 
-if __name__ == '__main__':
-    x = np.array([-2,0,3])
-    dout = np.array([1.0,1.0,1.0])
-    relu = Relu()
-    forward_test=relu.forward(x)
-    print(forward_test)
-    backward_test=relu.backward(dout)
-    print(backward_test)
+    def forward(self, x, t):
+        self.t=t
+        self.y = softmax(x)
+        self.loss = cross_entropy_error(self.y,t)
+        return self.loss
+    
+    def backward(self, dout=1):
+        return (self.y-self.t)*dout
+
+# if __name__ == '__main__':
+#     x = np.array([-2,0,3])
+#     dout = np.array([1.0,1.0,1.0])
+#     relu = Relu()
+#     forward_test=relu.forward(x)
+#     print(forward_test)
+#     backward_test=relu.backward(dout)
+#     print(backward_test)
     
 
 def softmax(x):
@@ -54,8 +68,15 @@ def softmax(x):
 def cross_entropy_error(y,t):
     return -np.log(np.sum(t*y)+1e-7)
 
-print(cross_entropy_error(np.array(([1.0, 0.0])),np.array(([1.0, 0.0]))))
-print(cross_entropy_error(np.array(([1.0, 0.0])),np.array(([0.0, 1.0]))))
+# print(cross_entropy_error(np.array(([1.0, 0.0])),np.array(([1.0, 0.0]))))
+# print(cross_entropy_error(np.array(([1.0, 0.0])),np.array(([0.0, 1.0]))))
 
-print(softmax(np.array([2.0, 1.0, 0.1])))
-print(softmax(np.array([1002.0, 1001.0, 1000.1]))) 
+# print(softmax(np.array([2.0, 1.0, 0.1])))
+# print(softmax(np.array([1002.0, 1001.0, 1000.1]))) 
+
+# loss_layer = SoftmaxWithLoss()
+# print(loss_layer.y, loss_layer.t, loss_layer.loss)
+
+# sl = SoftmaxWithLoss()
+# sl.forward(np.array(([2.0, 1.0, 0.1])),np.array(([0, 1, 0])))
+# print(sl.backward())

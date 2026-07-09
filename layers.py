@@ -29,7 +29,10 @@ class Affine:
         return (np.dot(x,self.W)+self.b)
 
     def backward(self, dout):
-        pass
+        dx = np.dot(dout,np.transpose(self.W))
+        self.dW = np.dot(np.transpose(self.x),dout)
+        self.db = np.sum(dout, axis=0)
+        return dx
 
 
 if __name__ == '__main__':

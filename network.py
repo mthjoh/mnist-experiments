@@ -31,7 +31,8 @@ class MultiLayerNet:
         return np.mean(prediction==answer)
 
 test = MultiLayerNet()
-print(test.accuracy(np.random.randn(784).reshape(1,784),np.array([0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]).reshape(1,10)))
+print(test.accuracy(np.random.randn(784).reshape(1,784),
+np.array([0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]).reshape(1,10)))
 
 # instance = MultiLayerNet()
 # print(instance.W1.shape)

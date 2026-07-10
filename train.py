@@ -27,7 +27,7 @@ for i in range(2001):
         print(f"Iteration {i}, Loss is: {net.loss(x_batch, t_batch)}")
         print(f"Iteration {i}, Accurcy is: {net.accuracy(x_test,t_test)}")
 
-np.savez('model.npz', *net.W, *net.b)
+np.savez('model.npz', *net.W, *net.b, sizes=net.sizes)
 
 # print(x_batch.shape, t_batch.shape)
 

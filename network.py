@@ -18,6 +18,8 @@ class MultiLayerNet:
 
         self.last_layer = layers.SoftmaxWithLoss()
 
+        self.sizes = sizes
+
 
         # self.W1 = np.random.randn(784, 100) * 0.01 
         # self.b1 = np.zeros(100)

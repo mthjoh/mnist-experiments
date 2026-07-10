@@ -15,19 +15,19 @@ for i in range(n1):
 for i in range(n2):
     net.b[i][:]=data[f'arr_{n1+i}']
 
-print(net.accuracy(x_test, t_test))
+# print(net.accuracy(x_test, t_test))
 
 
-# for i in range(200):
-#     idx=i
-#     img = x_test[idx]
-#     img_net = img.reshape(1,784)
-#     img_plot = img.reshape(28,28)
-#     if np.argmax(net.predict(img_net))!=np.argmax(t_test[idx]):
-#         print(f'The prediction of the network: {np.argmax(net.predict(img_net))}')
-#         print(f'The actual answer: {np.argmax(t_test[idx])}')
-#         plt.imshow(img_plot, cmap='gray')
-#         plt.show()
+for i in range(200):
+    idx=i
+    img = x_test[idx]
+    img_net = img.reshape(1,784)
+    img_plot = img.reshape(28,28)
+    if np.argmax(net.predict(img_net))!=np.argmax(t_test[idx]):
+        print(f'The prediction of the network: {np.argmax(net.predict(img_net))}')
+        print(f'The actual answer: {np.argmax(t_test[idx])}')
+        plt.imshow(img_plot, cmap='gray')
+        plt.show()
 
 
 # idx=100

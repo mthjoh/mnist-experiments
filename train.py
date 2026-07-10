@@ -3,10 +3,13 @@ import layers
 import network
 from dataset.mnist import load_mnist
 import matplotlib.pyplot as plt
+import optimizers
+
+optimzer = optimizers.SGD(lr=0.1)
 
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
 
-net = network.MultiLayerNet([784,500,500,500,500,10])
+net = network.MultiLayerNet([784,1000,1000,10])
 
 for i in range(10001):
     choice = np.random.choice(60000,100)
@@ -14,9 +17,13 @@ for i in range(10001):
     t_batch = t_train[choice]
     grads = net.gradient(x_batch,t_batch)
 
-    for j in range(len(net.W)):
-        net.W[j] -= 0.1*grads['W'][j]
-        net.b[j] -= 0.1*grads['b'][j]
+    params={'W':net.W, 'b':net.b}
+    optimzer.update(params,grads)
+
+    # for j in range(len(net.W)):
+        
+    #     net.W[j] -= 0.1*grads['W'][j]
+    #     net.b[j] -= 0.1*grads['b'][j]
 
 
     # net.W1 -= 0.1*grads['W1']

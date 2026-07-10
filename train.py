@@ -7,7 +7,7 @@ from dataset.mnist import load_mnist
 
 net = network.MultiLayerNet()
 
-for i in range(100000):
+for i in range(20001):
     choice = np.random.choice(60000,100)
     x_batch = x_train[choice]
     t_batch = t_train[choice]
@@ -16,8 +16,10 @@ for i in range(100000):
     net.W2 -= 0.1*grads['W2']
     net.b1 -= 0.1*grads['b1']
     net.b2 -= 0.1*grads['b2']
-    print(net.loss(x_batch, t_batch))
+    if i%4000==0:
+        print(f"Iteration {i}, Loss is: {net.loss(x_batch, t_batch)}")
+        print(f"Iteration {i}, Accurcy is: {net.accuracy(x_test,t_test)}")
 
-print(f"Accurcy is: {net.accuracy(x_test,t_test)}")
+
 
 # print(x_batch.shape, t_batch.shape)

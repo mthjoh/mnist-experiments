@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
 
-net = network.MultiLayerNet([784,100,10])
+net = network.MultiLayerNet([784,500,500,500,500,10])
 
-for i in range(2001):
+for i in range(10001):
     choice = np.random.choice(60000,100)
     x_batch = x_train[choice]
     t_batch = t_train[choice]
@@ -23,7 +23,7 @@ for i in range(2001):
     # net.W2 -= 0.1*grads['W2']
     # net.b1 -= 0.1*grads['b1']
     # net.b2 -= 0.1*grads['b2']
-    if i%100==0:
+    if i%2000==0:
         print(f"Iteration {i}, Loss is: {net.loss(x_batch, t_batch)}")
         print(f"Iteration {i}, Accurcy is: {net.accuracy(x_test,t_test)}")
 

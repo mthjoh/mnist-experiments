@@ -18,7 +18,7 @@ for i in range(n2):
 # print(net.accuracy(x_test, t_test))
 
 
-for i in range(200):
+for i in range(300):
     idx=i
     img = x_test[idx]
     img_net = img.reshape(1,784)

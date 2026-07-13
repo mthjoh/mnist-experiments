@@ -30,3 +30,36 @@ class Momentum:
             self.v['b'][j] = self.mom*self.v['b'][j] - self.lr*grads['b'][j]
             params['b'][j] += self.v['b'][j]
 
+class Adam:
+    def __init__(self, lr, beta1, beta2):
+        self.lr = lr
+        self.beta1 = beta1
+        self.beta2 = beta2
+        self.m = None
+        self.v = None
+        self.t = 0
+
+    def update(self, params, grads):
+        if self.m is None:
+            self.m = {'W':[], 'b':[]}
+            for i in range(len(params['W'])):
+                self.m['W'].append(np.zeros_like(params['W'][i]))
+                self.m['b'].append(np.zeros_like(params['b'][i]))
+        if self.v is None:
+            self.v = {'W':[], 'b':[]}
+            for i in range(len(params['W'])):
+                self.v['W'].append(np.zeros_like(params['W'][i]))
+                self.v['b'].append(np.zeros_like(params['b'][i]))
+        self.t+=1
+        for j in range(len(params['W'])):
+            self.m['W'][j] = self.beta1*self.m['W'][j] + (1-self.beta1)*grads['W'][j]
+            self.v['W'][j] = self.beta2*self.v['W'][j] + (1-self.beta2)*grads['W'][j]**2
+            mup = self.m['W'][j]/(1-self.beta1**self.t)
+            vup = self.v['W'][j]/(1-self.beta2**self.t)
+            params['W'][j] -= self.lr*mup/(np.sqrt(vup)+1e-7)
+
+            self.m['b'][j] = self.beta1*self.m['b'][j] + (1-self.beta1)*grads['b'][j]
+            self.v['b'][j] = self.beta2*self.v['b'][j] + (1-self.beta2)*grads['b'][j]**2
+            mup = self.m['b'][j]/(1-self.beta1**self.t)
+            vup = self.v['b'][j]/(1-self.beta2**self.t)
+            params['b'][j] -= self.lr*mup/(np.sqrt(vup)+1e-7)

@@ -18,16 +18,22 @@ for i in range(n2):
 # print(net.accuracy(x_test, t_test))
 
 
-for i in range(300):
+for i in range(10):
     idx=i
     img = x_test[idx]
     img_net = img.reshape(1,784)
     img_plot = img.reshape(28,28)
-    if np.argmax(net.predict(img_net))!=np.argmax(t_test[idx]):
-        print(f'The prediction of the network: {np.argmax(net.predict(img_net))}')
-        print(f'The actual answer: {np.argmax(t_test[idx])}')
-        plt.imshow(img_plot, cmap='gray')
-        plt.show()
+
+    print(f'The prediction of the network: {np.argmax(net.predict(img_net))}')
+    print(f'The actual answer: {np.argmax(t_test[idx])}')
+    plt.imshow(img_plot, cmap='gray')
+    plt.show()
+
+    # if np.argmax(net.predict(img_net))!=np.argmax(t_test[idx]):
+    #     print(f'The prediction of the network: {np.argmax(net.predict(img_net))}')
+    #     print(f'The actual answer: {np.argmax(t_test[idx])}')
+    #     plt.imshow(img_plot, cmap='gray')
+    #     plt.show()
 
 
 # idx=100

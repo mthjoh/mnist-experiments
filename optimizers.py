@@ -29,3 +29,4 @@ class Momentum:
             params['W'][j] += self.v['W'][j]
             self.v['b'][j] = self.mom*self.v['b'][j] - self.lr*grads['b'][j]
             params['b'][j] += self.v['b'][j]
+

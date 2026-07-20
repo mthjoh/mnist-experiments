@@ -102,7 +102,7 @@ def augment(x_batch):
                      # job 4: (N,28,28) → (N,784)
 
 start = time.perf_counter()
-loss_hist, acc_hist, iter_hist = run_experiments(sizes, optimizers.Momentum(0.05, 0.9), iters, batch)
+loss_hist, acc_hist, iter_hist = run_experiments(sizes, optimizers.Momentum(0.1, 0.9), iters, batch)
 elapsed = time.perf_counter() - start
 print(f'Time: {elapsed}s, iters/sec:{iters/elapsed}, images/sec: {batch*iters/elapsed} GFLOPS: {total*iters/elapsed/1e9}')
 

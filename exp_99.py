@@ -62,4 +62,4 @@ with open('results_exp_99.csv', 'w', newline='') as f:
     for j in range(len(loss_hist)):
         writer.writerow([iter_hist[j],loss_hist[j],acc_hist[j]])
 
-print(f'Accurcay:{acc_hist[-1]}, Loss:{loss_hist[-1]}')
+print(f'Accuracy:{acc_hist[-1]}, Loss:{loss_hist[-1]}')

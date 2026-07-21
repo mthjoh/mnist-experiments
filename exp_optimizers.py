@@ -5,7 +5,7 @@ import optimizers
 import csv
 
 results = {}
-results['SGD'] = run_experiments([784, 100, 10], optimizers.SGD(lr=0.1), 10001, 100)
+results['SGD'] = run_experiments([784, 100, 10], optimizers.SGD(0.1), 10001, 100)
 results['Momentum'] = run_experiments([784, 100, 10], optimizers.Momentum(0.1, 0.9), 10001, 100)
 results['Adam'] = run_experiments([784, 100, 10], optimizers.Adam(0.001, 0.9, 0.999), 10001, 100)
 

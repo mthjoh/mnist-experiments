@@ -12,9 +12,9 @@ x_train = x_train.astype(dtype)
 t_train = t_train.astype(dtype)
 
 iters=1000
-batch=100
+batch=2000
 
-sizes = [784, 100, 10]
+sizes = [784, 2000, 2000, 10]
 flops = 0
 for i in range(len(sizes)-1):
     flops += 2*batch*sizes[i] *sizes[i+1]

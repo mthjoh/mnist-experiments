@@ -8,5 +8,4 @@
 - Description, trained the mnist layer 100,000 times brut forcing my way to 97.99 accuracy
 - Still confused by: Still, much of what I am doing is just following orders from Claude. I don't fully understand the code and how it operates. I want to though. 
 - Implemented the He-init, allowing for proper training of deeper neural networks. 
-- Achieved 99.19 accuracy with [784,1000,1000,10] neural network layers
 - Made Self-describing model file; predict.py builds net from saved sizes. 

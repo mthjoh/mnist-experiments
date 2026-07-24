@@ -1,5 +1,6 @@
 import numpy as np
 from conv_layers import Convolution
+import time
 
 x = np.arange(75).reshape(3,5,5).astype(np.float64)
 w = np.ones((3,3,3))/27.0
@@ -20,8 +21,17 @@ print(out)
 
 
 
-x_batch = x.reshape(1, 3, 5, 5)
-W_layer = w.reshape(1, 3, 3, 3)
-b = np.zeros(1)
+# x_batch = x.reshape(1, 3, 5, 5)
+# W_layer = w.reshape(1, 3, 3, 3)
+# b = np.zeros(1)
 
-print(Convolution(W_layer,b).forward(x_batch))
+# print(Convolution(W_layer,b).forward(x_batch))
+
+fake_batch = np.random.randn(100, 1, 28, 28)
+W = np.random.randn(16,1,3,3)*0.01
+b = np.zeros(16)
+
+start = time.perf_counter()
+one_Run=Convolution(W,b).forward(fake_batch)
+elapsed = time.perf_counter() - start
+print(f'Time: {elapsed}s')

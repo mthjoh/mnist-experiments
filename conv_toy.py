@@ -15,23 +15,17 @@ for i in range(out_size):
 
 
 
-print(out[0,0])
-print(out)
+def im2col(x, F, stride):
+    channels, H, W_in = x.shape
+    out_size = (H-F)//stride + 1
+    col = np.zeros((out_size*out_size, channels*F*F))
+    
+    for i in range(out_size):
+        for j in range(out_size):
+            col[i*out_size+j] = x[:,i*stride:i*stride+F,j*stride:j*stride+F].flatten()
+    return col
 
+col = im2col(x, 3, 1)
 
-
-
-# x_batch = x.reshape(1, 3, 5, 5)
-# W_layer = w.reshape(1, 3, 3, 3)
-# b = np.zeros(1)
-
-# print(Convolution(W_layer,b).forward(x_batch))
-
-fake_batch = np.random.randn(100, 1, 28, 28)
-W = np.random.randn(16,1,3,3)*0.01
-b = np.zeros(16)
-
-start = time.perf_counter()
-one_Run=Convolution(W,b).forward(fake_batch)
-elapsed = time.perf_counter() - start
-print(f'Time: {elapsed}s')
+result = np.matmul(col,w.flatten())
+print(result)

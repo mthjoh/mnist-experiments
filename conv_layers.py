@@ -30,7 +30,52 @@ class Convolution:
         out = col @ col_W + self.b
         out = out.reshape(batch, out_size, out_size, filters)
         out = out.transpose(0,3,1,2)
+
+        self.col = col
+        self.col_W = col_W
+        self.x_shape = x.shape
         return out
+
+
+    # x        (100, 1, 28, 28)
+    # col      (67600, 9)
+    # col_W    (9, 16)
+    # out      (100, 16, 26, 26)
+    # dout 2D  (67600, 16)
+    # dW       (16,1,3,3)
+    # db       (16,)
+    # dcol     (67600,9)
+    # dx       (100, 1, 28, 28)
+
+    def backward(self, dout):
+        filters = self.W.shape[0]
+        F = self.W.shape[2]
+        channels = self.W.shape[1]
+        dout = dout.transpose(0,2,3,1).reshape(-1, filters)
+
+        dW = self.col.T @ dout
+        self.dW = dW.T.reshape(filters,channels,F,F)
+
+        self.db = np.sum(dout, axis = 0)
+
+        dcol = dout@self.col_W.T
+
+        dx=col2im(dcol, self.x_shape, F, self.stride)
+        return dx
+    
+def col2im(dcol, x_shape, F, stride):
+    batch, channels, H, W_in = x_shape
+    out_size = (H-F)//stride + 1
+    patches = out_size*out_size
+    pixels = np.zeros((batch, channels, H, W_in))
+
+    for n in range(batch):
+        for i in range(out_size):
+            for j in range(out_size):
+                row = n*patches + i*out_size + j
+                patch_grad = dcol[row].reshape(channels, F, F)
+                pixels[n, :,i*stride:i*stride+F,j*stride:j*stride+F] += patch_grad
+    return pixels
 
 
     

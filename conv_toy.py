@@ -16,13 +16,16 @@ W = np.random.randn(16, 1, 3, 3) * 0.01
 b = np.zeros(16)
 layer = Convolution(W, b)
 
-start = time.perf_counter()
-fast = layer.forward(fake_batch)
-elapsed = time.perf_counter() - start
-print(f'Fast Time: {elapsed}s')
+# start = time.perf_counter()
+# fast = layer.forward(fake_batch)
+# elapsed = time.perf_counter() - start
+# print(f'Fast Time: {elapsed}s')
 
-start2 = time.perf_counter()
-slow = layer.forward_naive(fake_batch)
-elapsed2 = time.perf_counter() - start2
-print(f'Slow Time: {elapsed2}s')
-print(f'Shape of each and are they roughly the same value?:{fast.shape, slow.shape},{np.allclose(fast, slow)}')
+# start2 = time.perf_counter()
+# slow = layer.forward_naive(fake_batch)
+# elapsed2 = time.perf_counter() - start2
+# print(f'Slow Time: {elapsed2}s')
+# print(f'Shape of each and are they roughly the same value?:{fast.shape, slow.shape},{np.allclose(fast, slow)}')
+
+out = layer.forward(fake_batch)
+layer.backward(np.ones_like(out))

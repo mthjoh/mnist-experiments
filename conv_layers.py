@@ -77,8 +77,6 @@ def col2im(dcol, x_shape, F, stride):
                 pixels[n, :,i*stride:i*stride+F,j*stride:j*stride+F] += patch_grad
     return pixels
 
-
-    
 def im2col(x, F, stride):
     channels, H, W_in = x.shape
     out_size = (H-F)//stride + 1

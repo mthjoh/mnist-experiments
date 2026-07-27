@@ -9,3 +9,6 @@
 - Still confused by: Still, much of what I am doing is just following orders from Claude. I don't fully understand the code and how it operates. I want to though. 
 - Implemented the He-init, allowing for proper training of deeper neural networks. 
 - Made Self-describing model file; predict.py builds net from saved sizes. 
+
+# 2026-07-27 - naive 1.259s to im2col 0.044s, 29 times at (100,1,28,28) with 16 3×3 filters.
+- I did expect the speed up to be even more drastic but the reson it settled at 29 is because the python loop still exists in the im2col_batch method in conv_layers.py. Python loop moved from arithmetic to batch suffling.

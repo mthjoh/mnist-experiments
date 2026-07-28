@@ -95,6 +95,16 @@ class MaxPooling:
         dx = dx_folded.reshape(batch,channels,H,W_in)
         return dx
 
+class Flatten:
+    def __init__(self):
+        self.x_shape = None
+    def forward(self, x):
+        batch = x.shape[0]
+        self.x_shape = x.shape
+        return x.reshape(batch, -1)
+    def backward(self, dout):
+        return dout.reshape(self.x_shape)
+
 
         
     

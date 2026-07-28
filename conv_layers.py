@@ -62,6 +62,41 @@ class Convolution:
 
         dx=col2im(dcol, self.x_shape, F, self.stride)
         return dx
+
+class MaxPooling:
+    def __init__(self, pool_size, stride):
+        self.pool_size = pool_size
+        self.stride = stride
+        self.arg_max = None
+        self.x_shape = None
+
+    def forward(self,x):
+        batch, channels, H, W_in = x.shape
+        out_size = (H-self.pool_size)//self.stride + 1
+        self.x_shape = x.shape
+        x_folded = x.reshape(batch*channels, -1,H, W_in)
+        col = im2col_batch(x_folded, self.pool_size, self.stride)
+        out=np.max(col, axis=1)
+        self.arg_max = np.argmax(col, axis=1)
+        out = out.reshape(batch, channels, out_size, out_size)
+        return out
+
+    def backward(self, dout):
+        dout_flat = dout.flatten()
+
+        dcol = np.zeros((dout_flat.size, self.pool_size*self.pool_size))
+
+        rows = np.arange(dout_flat.size)
+        dcol[rows, self.arg_max] = dout_flat
+
+        batch, channels, H, W_in = self.x_shape
+        dx_folded = col2im(dcol,(batch*channels, 1, H, W_in),self.pool_size,self.stride)
+
+        dx = dx_folded.reshape(batch,channels,H,W_in)
+        return dx
+
+
+        
     
 def col2im(dcol, x_shape, F, stride):
     batch, channels, H, W_in = x_shape
